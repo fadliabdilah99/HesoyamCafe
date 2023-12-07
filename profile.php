@@ -18,13 +18,20 @@
         .pelanggaranbtn .btn {
             color: green;
         }
+
+        .sosialmedia {
+            gap: 20;
+        }
     </style>
 </head>
 
 <body>
     <?php
     include 'proses/conect.php';
-    $query = mysqli_query($conn, "SELECT * FROM tb_user");
+    $query = mysqli_query(
+        $conn,
+        "SELECT * FROM tb_bayar"
+    );
     while ($record = mysqli_fetch_array($query)) {
         $result[] = $record;
     }
@@ -93,12 +100,54 @@
                     </div>
                     <div class="col-lg-8 p-4">
                         <div class="card  mb-3">
-                            <div class="card-header">Header</div>
+                            <div class="card-header">info lengkap</div>
+                            <?php
+
+                            if ($hasil['level'] == 1) {
+
+
+                                echo '<div class="card-body">
+                                    <h5 class="card-title">Total Pendapatan</h5>';
+
+                                $total = 0;
+
+                                foreach ($result as $row) {
+                                    $total += $row['total'];
+                                }
+                                echo '<p class="card-text">Rp ' . number_format($total, 0, ',', '.') . ' </p>
+                                </div>';
+                            
+
+                           
+                        echo '</div>
+                        <div class="card  mb-3">
+                            <div class="card-header">info Restaurant</div>
                             <div class="card-body">
-                                <h5 class="card-title">Dark card title</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                <h6 class="card-title">Alamat</h6>
+                                <h6 class="card-subtitle mb-2 text-body-secondary">Jl.ali-bin-abithalib, gedung lantai 1, Padalarang, Bandung barat, 5434</h6>
                             </div>
-                        </div>
+                            <div class="card-body">
+                                <h6 class="card-title">Jam Oprasional</h6>
+                                <h6 class="card-subtitle mb-2 text-body-secondary">08:00-22:00 </h6>
+                            </div>
+                            <div class="card-body ">
+                                <h6 class="card-title text-center mb-4">Sosial Media</h6>
+                                <div class="d-flex justify-content-around">
+                                    <a href=""><i class="bi bi-instagram"></i></a>
+                                    <a href=""><i class="bi bi-whatsapp"></i></a>
+                                    <a href=""><i class="bi bi-facebook"></i></a>
+                                    <a href=""><i class="bi bi-tiktok"></i></a>
+
+                                </div>
+                            </div>
+                        </div>';
+                            }
+
+                        ?>
+
+
+
+
                     </div>
                 </div>
             </div>

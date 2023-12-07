@@ -188,32 +188,34 @@ $select_menu = mysqli_query($conn, "SELECT  id,nama_menu FROM tb_menu");
 
                             $no = 1;
                             foreach ($result as $row) {
+                                if ($row['status'] != 2) {
 
                             ?>
-                                <tr class="text-nowrap">
-                                    <td><?php echo $no++ ?></td>
-                                    <td><?php echo $row['order'] ?></td>
-                                    <td><?php echo $row['waktu_order'] ?></td>
-                                    <td><?php echo $row['nama_menu'] ?></td>
-                                    <td><?php echo $row['jumlah'] ?></td>
-                                    <td><?php echo $row['keterangan_list']; ?></td>
-                                    <td><?php if ($row['status'] == 1) {
-                                            echo 'orderan diteriman';
-                                        } elseif ($row['status'] == 2) {
-                                            echo 'siap disajikan';
-                                        } else {
-                                            echo 'belum di terima';
-                                        } ?></td>
-                                    <td class="">
-                                        <div class="d-flex" style="gap: 10px;">
-                                            <button class="<?php echo (!empty($row['status'])) ? "btn btn-secondary disabled" : "btn btn-warning"; ?>   btn-sm" data-bs-toggle="modal" data-bs-target="#terima<?php echo $row['id_list_order']; ?>">terima</button>
-                                            <button class="<?php echo (empty($row['status']) || $row['status'] != 1) ? "btn btn-secondary disabled" : "btn btn-danger"; ?>   btn-sm" data-bs-toggle="modal" data-bs-target="#siap<?php echo $row['id_list_order']; ?>">siap saji</button>
-                                        </div>
-                                    </td>
-                                </tr>
+                                    <tr class="text-nowrap">
+                                        <td><?php echo $no++ ?></td>
+                                        <td><?php echo $row['order'] ?></td>
+                                        <td><?php echo $row['waktu_order'] ?></td>
+                                        <td><?php echo $row['nama_menu'] ?></td>
+                                        <td><?php echo $row['jumlah'] ?></td>
+                                        <td><?php echo $row['keterangan_list']; ?></td>
+                                        <td><?php if ($row['status'] == 1) {
+                                                echo 'orderan diteriman';
+                                            } elseif ($row['status'] == 2) {
+                                                echo 'siap disajikan';
+                                            } else {
+                                                echo 'belum di terima';
+                                            } ?></td>
+                                        <td class="">
+                                            <div class="d-flex" style="gap: 10px;">
+                                                <button class="<?php echo (!empty($row['status'])) ? "btn btn-secondary disabled" : "btn btn-warning"; ?>   btn-sm" data-bs-toggle="modal" data-bs-target="#terima<?php echo $row['id_list_order']; ?>">terima</button>
+                                                <button class="<?php echo (empty($row['status']) || $row['status'] != 1) ? "btn btn-secondary disabled" : "btn btn-danger"; ?>   btn-sm" data-bs-toggle="modal" data-bs-target="#siap<?php echo $row['id_list_order']; ?>">siap saji</button>
+                                            </div>
+                                        </td>
+                                    </tr>
                             <?php
-
-                            } ?>
+                                }
+                            }
+                            ?>
 
 
                         </tbody>

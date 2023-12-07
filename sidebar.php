@@ -26,7 +26,7 @@
                                 <a class="nav-link <?php echo ((isset($_GET['x']) && $_GET['x'] == 'home') || !isset($_GET['x'])) ? 'active link-light' :
                                                         'link-dark' ?>ps-2" aria-current="page" href="home"><i class="bi bi-house"></i> Dasboard</a>
                             </li>
-                            <?php if ($hasil['level'] == 1 || $hasil['level'] ==  4 || $hasil['level'] ==  2) { ?>
+                            <?php if ($hasil['level'] == 1 || $hasil['level'] ==  3 || $hasil['level'] ==  2) { ?>
                                 <li class="nav-item">
                                     <a class="nav-link <?php echo (isset($_GET['x']) && $_GET['x'] == 'menu') ? 'active link-light' : 'b';
                                                         'link-dark' ?> ps-2" href="menu"><i class="bi bi-card-checklist"></i> Daftar Menu</a>
@@ -37,7 +37,7 @@
                                                         'link-dark' ?> ps-2" href="order"><i class="bi bi-cart2"></i> Order</a>
                                 </li>
                             <?php } ?>
-                            <?php if ($hasil['level'] == 3 || $hasil['level'] == 1) { ?>
+                            <?php if ($hasil['level'] == 4 || $hasil['level'] == 1) { ?>
                                 <li class="nav-item">
 
                                     <a class="nav-link <?php echo (isset($_GET['x']) && $_GET['x'] == 'dapur') ? 'active link-light' : 'b';

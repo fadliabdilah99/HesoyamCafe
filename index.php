@@ -19,7 +19,7 @@
                     include "main.php";
                 }
             } elseif (isset($_GET['x']) && $_GET['x'] == 'dapur') {
-                if ($_SESSION['level'] == 3 || $_SESSION['level'] == 1) {
+                if ($_SESSION['level'] == 4 || $_SESSION['level'] == 1) {
                     $page = "dapur.php";
                     include "main.php";
                 } else {
