@@ -201,7 +201,7 @@ if (!empty($_SESSION['username'])) {
                 </label>
             </div>
             <button class="btn btn-primary w-100 py-2" type="submit" name="sumbit" value="a">LogIn</button>
-            <p class="mt-5 mb-3 text-body-secondary">&copy; mawarCafe</p>
+            <p class="mt-5 mb-3 text-body-secondary">&copy; HesoyamCafe</p>
         </form>
 
     </main>

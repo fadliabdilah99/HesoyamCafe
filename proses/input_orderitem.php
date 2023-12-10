@@ -42,7 +42,7 @@ if (!empty($_POST['inputlistorder'])) {
         window.history.back()
         </script>';
     } else {
-        $query = mysqli_query($conn, "INSERT INTO tb_list_order values ('',$menu,$kode_order,$jumlah,'$keterangan', '')");
+        $query = mysqli_query($conn, "INSERT INTO tb_list_order values ('',$menu,$kode_order,$jumlah,'$keterangan', 2)");
         if ($query) {
             $massage = '<script>alert("databerhasil");
             window.location="../?x=orderitem&order=' . $kode_order . '&meja=' . $meja . '&pelanggan=' . $pelanggan . '"

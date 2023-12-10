@@ -17,6 +17,12 @@ $hasil = mysqli_fetch_array($query);
     <title>Hesoyam Cafe</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        body {
+            background-image: url('asset/bgbody.jpg');
+            background-size: cover;
+        }
+    </style>
 </head>
 
 <body>
@@ -26,20 +32,21 @@ $hasil = mysqli_fetch_array($query);
     ?>
     <!-- header -->
 
+    <div class="pt-3">
+        <div class="container-lg ">
+            <div class="row ">
+                <!-- side bar -->
+                <?php
+                include "sidebar.php";
+                ?>
+                <!-- end side bar -->
 
-    <div class="container-lg">
-        <div class="row mb-5">
-            <!-- side bar -->
-            <?php
-            include "sidebar.php";
-            ?>
-            <!-- end side bar -->
-
-            <!-- content -->
-            <?php
-            include $page;
-            ?>
-            <!-- end content -->
+                <!-- content -->
+                <?php
+                include $page;
+                ?>
+                <!-- end content -->
+            </div>
         </div>
     </div>
     <div class="fixed-bottom text-center bg-light py-2">

@@ -1,7 +1,7 @@
-<nav class="navbar navbar-expand bg-primary navbar-dark">
+<nav class="navbar navbar-expand bg-transparant shadow navbar-dark">
     <div class="container">
 
-        <a class="navbar-brand <?php echo (isset($_GET['x']) && $_GET['x'] == 'home') ?> active link-light" href="home"><i class="bi bi-cup-hot me-2"></i>Hesoyam cofe</a>
+        <a class="navbar-brand text-dark <?php echo (isset($_GET['x']) && $_GET['x'] == 'home') ?> active link-light" href="home"><i class="bi bi-cup-hot me-2 "></i>Hesoyam cofe</a>
         <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
             <ul class="navbar-nav">
                 <li class="nav-item dropdown">
