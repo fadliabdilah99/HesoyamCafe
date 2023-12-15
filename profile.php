@@ -1,3 +1,12 @@
+<?php
+include 'proses/conect.php';
+
+
+
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,16 +35,95 @@
 </head>
 
 <body>
+
     <?php
     include 'proses/conect.php';
     $query = mysqli_query(
         $conn,
         "SELECT * FROM tb_bayar"
     );
+    $select_user = mysqli_query(
+        $conn,
+        "SELECT * FROM tb_user"
+    );
     while ($record = mysqli_fetch_array($query)) {
         $result[] = $record;
     }
     ?>
+
+
+
+
+    <!-- tambah poin kesalahan -->
+    <div class="modal fade" id="skor" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-fullscreen-md-down">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Beri Poin Sangsi</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="proses/proses_sangsi_user.php" method="POST" class="needs-validation" novalidate>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-floating mb-3">
+                                    <select class="form-select" name="poin" id="">
+                                        <option value="" selected>tingkat pelanggaran</option>
+                                        <option value="2">Ringan</option>
+                                        <option value="5">sedang</option>
+                                        <option value="10">berat</option>
+                                        <option value="20">sangat berat</option>
+
+                                    </select>
+                                    <label for="menu">Karyawan yang melakukan pelanggaran</label>
+                                    <div class="invalid-feedback">
+                                        pilih menu
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-floating mb-3">
+                                    <select class="form-select" name="karyawan" id="">
+                                        <option value="" selected>karyawan</option>
+                                        <?php
+                                        foreach ($select_user as $value) {
+                                            echo "<option value=$value[id]>$value[nama]</option>";
+                                        }
+                                        ?>
+                                    </select>
+                                    <label for="menu">Karyawan yang melakukan pelanggaran</label>
+                                    <div class="invalid-feedback">
+                                        pilih menu
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+
+                                <div class="col-lg-12">
+                                    <div class="form-floating mb-3">
+                                        <input name="keterangan" type="text" class="form-control" id="floatingInput" placeholder="Keterangan">
+                                        <label for="floatingPassword">Keterangan</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="sumbit" class="btn btn-primary" name="pelanggaran" value="1234">Understood</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- end tambah poin kesalahan -->
+
+
+
+
+
     <div class="col-lg-9  mt-2">
         <div class="card ">
             <div class="p-3">
@@ -62,10 +150,11 @@
                                         ?></p>
                 </div>
                 <?php
+
                 if ($hasil['level'] == 1) {
 
                     echo '<div class="  d-flex justify-content-center pelanggaranbtn">';
-                    echo       '<button class=" btn bg-primary ps-5 pe-5 text-light" data-bs-toggle="modal" data-bs-target="#bayar">Beri sangsi pegawai</button>';
+                    echo       '<button class=" btn bg-primary ps-5 pe-5 text-light" data-bs-toggle="modal" data-bs-target="#skor">Beri sangsi pegawai</button>';
                     echo  '</div>';
                 }
 
@@ -109,17 +198,17 @@
                                 echo '<div class="card-body">
                                     <h5 class="card-title">Total Pendapatan</h5>';
 
-                                $total = 0;
 
+                                $total = 0;
                                 foreach ($result as $row) {
                                     $total += $row['total'];
                                 }
                                 echo '<p class="card-text">Rp ' . number_format($total, 0, ',', '.') . ' </p>
                                 </div>';
-                            
 
-                           
-                        echo '</div>
+
+
+                                echo '
                         <div class="card  mb-3">
                             <div class="card-header">info Restaurant</div>
                             <div class="card-body">
@@ -143,11 +232,77 @@
                         </div>';
                             }
 
-                        ?>
+                            ?>
 
 
+                            <?php
+                            if ($hasil['level'] != 1) {
+                                echo '<div class="card-body">';
+                                echo '<h6 class="card-title">Kredit Skor</h6>';
 
+                                $iduser = $hasil['id'];
+                                $query2 = mysqli_query($conn, "SELECT skor_pelanggaran, keterangan_pelanggaran FROM tb_pelanggaran where id_pelanggaran = $iduser ");
+                                while ($record2 = mysqli_fetch_array($query2)) {
+                                    $result2[] = $record2;
+                                }
+                                $skor = 0;
 
+                                if (empty($result2)) {
+                                    echo "kamu tidak memiliki skor pelanggaran";
+                                } else {
+                                    foreach ($result2 as $row) {
+                                        $skor += $row['skor_pelanggaran'];
+                                    }
+                                }
+
+                                echo '<h6 class="card-subtitle mb-2 ';
+                                if ($skor > 0 && $skor <= 10) {
+                                    echo 'text-success';
+                                } elseif ($skor > 10 && $skor <= 20) {
+                                    echo 'text-warning';
+                                } else {
+                                    echo 'text-danger';
+                                }
+                                echo '">' . $skor . '</h6>';
+                                echo '</div>';
+                            }
+                            ?>
+
+                        </div>
+                        <div class="card md-3">
+                            <div class="card-body ">
+                                <h6 class="card-title text-center mb-4">Pelanggaran yang dilakukan</h6>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">ID</th>
+                                            <th scope="col">skor</th>
+                                            <th scope="col">pelanggaran yang di lakukan</th>
+                                        </tr>
+                                    </thead>
+                                    <?php
+                                    $no = 1;
+
+                                    if (empty($result2)) {
+                                        echo "kamu tidak memiliki skor pelanggaran";
+                                    } else {
+                                        foreach ($result2 as $row) {
+                                            $skor += $row['skor_pelanggaran'];
+
+                                    ?>
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row"><?php echo $no++ ?></th>
+                                                    <td><?php echo $row['keterangan_pelanggaran']; ?></td>
+                                                    <td><?php echo $row['skor_pelanggaran']; ?></td>
+                                                </tr>
+
+                                            </tbody>
+                                    <?php     }
+                                    } ?>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

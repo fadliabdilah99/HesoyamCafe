@@ -25,7 +25,7 @@
                 if ($_SESSION['level'] == 1) {
                     $page = "user.php";
                     include "main.php";
-                } else {
+                } else {            
                     include "home.php";
                 }
             } elseif (isset($_GET['x']) && $_GET['x'] == 'dapur') {
