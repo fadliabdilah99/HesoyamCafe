@@ -15,6 +15,11 @@ while ($record = mysqli_fetch_array($query2)) {
     $result[] = $record;
 }
 
+$select_user = mysqli_query(
+    $conn,
+    "SELECT * FROM tb_user"
+);
+
 $hasil = mysqli_fetch_array($query);
 
 ?>
@@ -505,7 +510,8 @@ $hasil = mysqli_fetch_array($query);
             padding-left: 2rem;
         }
 
-        .contact .row form .input-group input {
+        .contact .row form .input-group input,
+        .contact .row form .input-group select {
             width: 100%;
             padding: 2rem;
             font-size: 1.7rem;
@@ -855,7 +861,6 @@ $hasil = mysqli_fetch_array($query);
     <!-- Menu Section end -->
 
 
-
     <!-- Contact Section start -->
     <section id="contact" class="contact">
         <h2><span>Kontak</span> Kami</h2>
@@ -884,6 +889,41 @@ $hasil = mysqli_fetch_array($query);
         </div>
     </section>
     <!-- Contact Section end -->
+
+
+    <!-- Contact Section start -->
+    <section id="contact" class="contact">
+        <h2><span>Report Dan Masukan</span><br>HesoyamCafe</h2>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis, provident.
+        </p>
+
+        <div class="row">
+
+            <form action="proses/proses_report_user.php" method="POST" novalidate>
+                <div class="input-group">
+                    <i data-feather="user"></i>
+                    <select class="form-select" name="karyawan" id="">
+                        <option value="" selected>karyawan</option>
+                        <?php
+                        foreach ($select_user as $value) {
+                            if ($value['level'] != 5) {
+                                echo "<option style='background-color: rgba(1, 1, 1, 0.8);' value={$value['nama']}>{$value['nama']}</option>";
+                            }
+                        }
+                        ?>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <i data-feather="mail"></i>
+                    <input name="keluhan" type="text" placeholder="Keluhan">
+                </div>
+                <button type="submit" name="report" class="btn">kirim pesan</button>
+            </form>
+
+        </div>
+    </section>
+    <!-- Contact Section end -->
+
 
     <!-- Footer start -->
     <footer>
@@ -930,6 +970,8 @@ $hasil = mysqli_fetch_array($query);
         </div>
     </div>
     <!-- Modal Box Item Detail end -->
+
+
 
     <!-- Feather Icons -->
     <script>

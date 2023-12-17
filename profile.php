@@ -87,7 +87,9 @@ include 'proses/conect.php';
                                         <option value="" selected>karyawan</option>
                                         <?php
                                         foreach ($select_user as $value) {
-                                            echo "<option value=$value[id]>$value[nama]</option>";
+                                            if ($value['level'] != 1 && $value['level'] != 5) {
+                                                echo "<option value={$value['id']}>{$value['nama']}</option>";
+                                            }
                                         }
                                         ?>
                                     </select>
@@ -209,27 +211,27 @@ include 'proses/conect.php';
 
 
                                 echo '
-                        <div class="card  mb-3">
-                            <div class="card-header">info Restaurant</div>
-                            <div class="card-body">
-                                <h6 class="card-title">Alamat</h6>
-                                <h6 class="card-subtitle mb-2 text-body-secondary">Jl.ali-bin-abithalib, gedung lantai 1, Padalarang, Bandung barat, 5434</h6>
-                            </div>
-                            <div class="card-body">
-                                <h6 class="card-title">Jam Oprasional</h6>
-                                <h6 class="card-subtitle mb-2 text-body-secondary">08:00-22:00 </h6>
-                            </div>
-                            <div class="card-body ">
-                                <h6 class="card-title text-center mb-4">Sosial Media</h6>
-                                <div class="d-flex justify-content-around">
-                                    <a href=""><i class="bi bi-instagram"></i></a>
-                                    <a href=""><i class="bi bi-whatsapp"></i></a>
-                                    <a href=""><i class="bi bi-facebook"></i></a>
-                                    <a href=""><i class="bi bi-tiktok"></i></a>
-
+                            <div class="card  mb-3">
+                                <div class="card-header">info Restaurant</div>
+                                <div class="card-body">
+                                    <h6 class="card-title">Alamat</h6>
+                                    <h6 class="card-subtitle mb-2 text-body-secondary">Jl.ali-bin-abithalib, gedung lantai 1, Padalarang, Bandung barat, 5434</h6>
                                 </div>
-                            </div>
-                        </div>';
+                                <div class="card-body">
+                                    <h6 class="card-title">Jam Oprasional</h6>
+                                    <h6 class="card-subtitle mb-2 text-body-secondary">08:00-22:00 </h6>
+                                </div>
+                                <div class="card-body ">
+                                    <h6 class="card-title text-center mb-4">Sosial Media</h6>
+                                    <div class="d-flex justify-content-around">
+                                        <a href=""><i class="bi bi-instagram"></i></a>
+                                        <a href=""><i class="bi bi-whatsapp"></i></a>
+                                        <a href=""><i class="bi bi-facebook"></i></a>
+                                        <a href=""><i class="bi bi-tiktok"></i></a>
+
+                                    </div>
+                                </div>
+                            </div>';
                             }
 
                             ?>
@@ -269,7 +271,9 @@ include 'proses/conect.php';
                             ?>
 
                         </div>
-                        <div class="card md-3">
+                        <?php
+                        if ($hasil['level'] != 1) {
+                            echo '<div class="card md-3">
                             <div class="card-body ">
                                 <h6 class="card-title text-center mb-4">Pelanggaran yang dilakukan</h6>
                                 <table class="table">
@@ -279,30 +283,36 @@ include 'proses/conect.php';
                                             <th scope="col">skor</th>
                                             <th scope="col">pelanggaran yang di lakukan</th>
                                         </tr>
-                                    </thead>
-                                    <?php
-                                    $no = 1;
+                                    </thead>';
 
-                                    if (empty($result2)) {
-                                        echo "kamu tidak memiliki skor pelanggaran";
-                                    } else {
-                                        foreach ($result2 as $row) {
-                                            $skor += $row['skor_pelanggaran'];
+                            $no = 1;
 
-                                    ?>
-                                            <tbody>
+                            if (empty($result2)) {
+                                echo "kamu tidak memiliki skor pelanggaran";
+                            } else {
+                                foreach ($result2 as $row) {
+                                    $skor += $row['skor_pelanggaran'];
+
+
+                                    echo '<tbody>
                                                 <tr>
                                                     <th scope="row"><?php echo $no++ ?></th>
-                                                    <td><?php echo $row['keterangan_pelanggaran']; ?></td>
-                                                    <td><?php echo $row['skor_pelanggaran']; ?></td>
+                                                    <td> ' . $row['skor_pelanggaran'] . ' </td>
+                                                    <td> ' . $row['keterangan_pelanggaran'] . ' </td>
                                                 </tr>
 
-                                            </tbody>
-                                    <?php     }
-                                    } ?>
-                                </table>
+                                            </tbody>';
+                                }
+                            }
+                            echo  '</table>
                             </div>
-                        </div>
+                        </div>';
+                        }
+
+
+
+                        ?>
+
                     </div>
                 </div>
             </div>

@@ -1,3 +1,10 @@
+<?php
+$select_user = mysqli_query(
+    $conn,
+    "SELECT * FROM tb_report"
+);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -46,14 +53,21 @@
                                 </li>
                             <?php } ?>
 
-                            <?php if ($hasil['level'] == 1) { ?>
+                            <?php
+
+                            $no = 0;
+                            foreach ($select_user as $row) {
+                                $no++;
+                            }
+
+                            if ($hasil['level'] == 1) { ?>
                                 <li class="nav-item">
                                     <a class="nav-link <?php echo (isset($_GET['x']) && $_GET['x'] == 'user') ? 'active link-light' : 'b';
                                                         'link-dark' ?> ps-2" href="user"><i class="bi bi-menu-button-wide"></i> User</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link <?php echo (isset($_GET['x']) && $_GET['x'] == 'report') ? 'active link-light' : 'b';
-                                                        'link-dark' ?> ps-2" href="report"><i class="bi bi-cone-striped" x=report></i> Report</a>
+                                                        'link-dark' ?> ps-2" href="report"><i class="bi bi-cone-striped" x=report></i>report <span class="text-warning text-end"><?php echo $no ?> </span></a>
                                 </li>
                             <?php } ?>
                         </ul>
